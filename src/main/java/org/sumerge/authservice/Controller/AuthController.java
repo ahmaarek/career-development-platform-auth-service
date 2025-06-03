@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.sumerge.authservice.Common.ApiResponse;
 import org.sumerge.authservice.Model.DTO.SignupRequest;
 import org.sumerge.authservice.Model.DTO.SignupResponse;
-import org.sumerge.authservice.Model.UserAccount;
 import org.sumerge.authservice.Service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
