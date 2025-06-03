@@ -31,7 +31,8 @@ public class AuthController {
         } catch (RuntimeException e) {
             ApiResponse<LoginResponse> error = ApiResponse.error(e.getMessage(), 401);
             return ResponseEntity.status(401).body(error);
-
+        }
+    }
     @PostMapping("/signup")
     public ResponseEntity<ApiResponse<SignupResponse>> signup(@RequestBody SignupRequest request) {
         try {
