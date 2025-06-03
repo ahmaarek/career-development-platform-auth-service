@@ -7,11 +7,6 @@ import org.sumerge.authservice.Model.DTO.LoginResponse;
 import org.sumerge.authservice.Model.UserAccount;
 import org.sumerge.authservice.Repository.UserAccountRepository;
 import org.sumerge.authservice.Security.JwtUtil;
-import org.sumerge.authservice.Model.DTO.SignupRequest;
-import org.sumerge.authservice.Model.DTO.SignupResponse;
-import org.sumerge.authservice.Model.UserAccount;
-import org.sumerge.authservice.Repository.UserAccountRepository;
-import org.sumerge.authservice.Security.JwtUtil;
 
 
 @Service
@@ -37,21 +32,6 @@ public class AuthService {
         String token = jwtUtil.generateToken(user.getEmail());
         return new LoginResponse(user.getId(),user.getEmail(), token);
     }
-  
-    public SignupResponse signup(SignupRequest request) {
-        if (userAccountRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Email is already registered.");
-        }
 
-        UserAccount user = UserAccount.builder()
-                .email(request.getEmail())
-                .passwordHash(passwordEncoder.encode(request.getPassword()))
-                .build();
-
-        userAccountRepository.save(user);
-        String token = jwtUtil.generateToken(user.getEmail());
-
-        return new SignupResponse(user.getId(),user.getEmail(), token);
-    }
      
 }
