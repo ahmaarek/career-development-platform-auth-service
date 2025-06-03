@@ -4,9 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.sumerge.authservice.Common.ApiResponse;
 import org.sumerge.authservice.Model.DTO.LoginRequest;
 import org.sumerge.authservice.Model.DTO.LoginResponse;
-import org.sumerge.authservice.Model.DTO.SignupRequest;
-import org.sumerge.authservice.Model.DTO.SignupResponse;
-import org.sumerge.authservice.Model.UserAccount;
 import org.sumerge.authservice.Service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +18,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
         try {
@@ -31,6 +27,7 @@ public class AuthController {
         } catch (RuntimeException e) {
             ApiResponse<LoginResponse> error = ApiResponse.error(e.getMessage(), 401);
             return ResponseEntity.status(401).body(error);
+
         }
     }
     @PostMapping("/signup")
@@ -50,4 +47,5 @@ public class AuthController {
 
         }
     }
+
 }
