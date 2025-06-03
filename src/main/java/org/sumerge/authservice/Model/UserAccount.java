@@ -2,12 +2,14 @@ package org.sumerge.authservice.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user_account")
 @Data // Generates getters, setters, toString, equals, and hashCode
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserAccount {
