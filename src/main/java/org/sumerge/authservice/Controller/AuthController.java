@@ -37,8 +37,6 @@ public class AuthController {
     public ResponseEntity<ApiResponse<SignupResponse>> signup(@RequestBody SignupRequest request) {
         try {
             SignupResponse data = authService.signup(request);
-            //TODO: Send a request to user service
-            //TODO: Add the user to user_data table in user service database
 
             return ResponseEntity.status(201).body(
                     ApiResponse.success("User registered successfully",

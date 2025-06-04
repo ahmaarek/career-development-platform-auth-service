@@ -15,6 +15,6 @@ import java.util.Map;
 public interface UserServiceClient {
 
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ApiResponse createUser(@RequestBody CreateUserRequest requestBody);
+    ApiResponse<?> createUser(@RequestBody CreateUserRequest requestBody);
 
 }
