@@ -3,6 +3,7 @@ package org.sumerge.authservice.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.sumerge.authservice.Client.UserServiceClient;
+import org.sumerge.authservice.Common.ApiResponse;
 import org.sumerge.authservice.Model.DTO.*;
 import org.sumerge.authservice.Model.UserAccount;
 import org.sumerge.authservice.Repository.UserAccountRepository;
@@ -38,10 +39,22 @@ public class AuthService {
         userAccountRepository.save(user);
         String token = jwtUtil.generateToken(user.getEmail());
 
-        CreateUserRequest userRequest = new CreateUserRequest(user.getId(),request.getName(),user.getEmail(),token);
-        userServiceClient.createUser(userRequest);
+        CreateUserRequest userRequest = new CreateUserRequest(
+                user.getId(),request.getName(),user.getEmail(),token);
+
+        try {
+            userServiceClient.createUser(userRequest);
+
+        } catch (Exception e) {
+
+            userAccountRepository.deleteById(user.getId());
+            throw new RuntimeException("Failed to create user in UserService: " + e.getMessage(), e);
+        }
+
         return new SignupResponse(user.getId(),user.getEmail(), token);
     }
+
+
 
     public LoginResponse login(LoginRequest request) {
         UserAccount user = userAccountRepository.findByEmail(request.getEmail())
@@ -54,5 +67,4 @@ public class AuthService {
         return new LoginResponse(user.getId(),user.getEmail(), token);
     }
 
-     
 }
